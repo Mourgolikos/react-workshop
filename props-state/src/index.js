@@ -6,15 +6,19 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      currentEvent: '----',
-      thoughts: ''
+      counter: 0
     };
 
-    this.update = this.update.bind(this);
+    this.addValue = this.addValue.bind(this);
+    this.removeValue = this.removeValue.bind(this);
   }
 
-  update(event) {
-    this.setState({thoughts: event.target.value})
+  addValue() {
+    this.setState(prevState => ({counter: prevState.counter + 1}))
+  }
+
+  removeValue() {
+    this.setState(prevState => ({counter: prevState.counter - 1}))
   }
 
   render() {
@@ -23,16 +27,17 @@ class App extends Component {
         <div className="App-header">
           <h2>Welcome to React-Workshop</h2>
         </div>
-        <div>
-          <h2>Write your thoughts: {this.state.thoughts}</h2>
-          <input
-            onChange={this.update}
-          />
-        </div>
         <Button
-          buttonName='Totos'
+          buttonName='+'
           buttonSize='btn-small'
+          updateValue={this.addValue}
         />
+        <Button
+          buttonName='-'
+          buttonSize='btn-small'
+          updateValue={this.removeValue}
+        />
+        <h2>{this.state.counter}</h2>
       </div>
     );
   }
@@ -40,10 +45,11 @@ class App extends Component {
 
 class Button extends Component {
   render() {
-    const {buttonName, buttonSize} = this.props;
+    const {buttonName, buttonSize, updateValue} = this.props;
     return (
       <button
         className={`button ${buttonSize}`}
+        onClick={updateValue}
       >
         {buttonName}
       </button>
