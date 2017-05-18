@@ -9,8 +9,25 @@ class App extends Component {
         <div className="App-header">
           <h2>Welcome to React-Workshop</h2>
         </div>
+        <Button
+          buttonName='Totos'
+          buttonSize='btn-small'
+        />
       </div>
     );
+  }
+}
+
+class Button extends Component {
+  render() {
+    const {buttonName, buttonSize} = this.props;
+    return (
+      <button
+        className={`button ${buttonSize}`}
+      >
+        {buttonName}
+      </button>
+    )
   }
 }
 
