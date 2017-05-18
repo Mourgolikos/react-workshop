@@ -6,14 +6,15 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      currentEvent: '----'
+      currentEvent: '----',
+      thoughts: ''
     };
 
     this.update = this.update.bind(this);
   }
 
   update(event) {
-    this.setState({currentEvent: event.type})
+    this.setState({thoughts: event.target.value})
   }
 
   render() {
@@ -23,20 +24,9 @@ class App extends Component {
           <h2>Welcome to React-Workshop</h2>
         </div>
         <div>
-          <p>
-            <h2>Current Event Type: {this.state.currentEvent}</h2>
-          </p>
+          <h2>Write your thoughts: {this.state.thoughts}</h2>
           <input
-            onKeyPress={this.update}
-            onCopy={this.update}
-            onCut={this.update}
-            onPaste={this.update}
-            onFocus={this.update}
-            onBlur={this.update}
-            onDoubleClick={this.update}
-            onTouchStart={this.update}
-            onTouchMove={this.update}
-            onTouchEnd={this.update}
+            onChange={this.update}
           />
         </div>
         <Button
