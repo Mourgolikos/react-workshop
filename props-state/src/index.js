@@ -2,23 +2,59 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
+class FoodList extends Component {
+  constructor(props) {
+    super(props);
+    this.displayFoods = this.displayFoods.bind(this);
+  }
+
+  displayFoods() {
+    return this.props.foods.map((food, index) => {
+      return <li key={index}>{food}</li>
+    });
+  }
+
+  render() {
+    return (
+      <ul>
+        {this.displayFoods()}
+      </ul>
+    )
+  }
+}
+
+class SearchBar extends Component {
+  render() {
+    return (
+      <div>
+        <input
+          onChange={this.props.onInputChange}
+        />
+      </div>
+    )
+  }
+}
+
 class App extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      counter: 0
+      foods: props.foods
     };
 
-    this.addValue = this.addValue.bind(this);
-    this.removeValue = this.removeValue.bind(this);
+    this.filterFoods = this.filterFoods.bind(this);
   }
 
-  addValue() {
-    this.setState(prevState => ({counter: prevState.counter + 1}))
-  }
+  filterFoods(event) {
+    const filteredData = this.props.foods.filter(food => {
+      return food.toLowerCase().includes(event.target.value.toLowerCase())
+    });
 
-  removeValue() {
-    this.setState(prevState => ({counter: prevState.counter - 1}))
+    if (!!filteredData) {
+      this.setState({
+        foods: filteredData
+      });
+    }
   }
 
   render() {
@@ -27,37 +63,27 @@ class App extends Component {
         <div className="App-header">
           <h2>Welcome to React-Workshop</h2>
         </div>
-        <Button
-          buttonName='+'
-          buttonSize='btn-small'
-          updateValue={this.addValue}
-        />
-        <Button
-          buttonName='-'
-          buttonSize='btn-small'
-          updateValue={this.removeValue}
-        />
-        <h2>{this.state.counter}</h2>
+        <div>
+          <SearchBar
+            onInputChange={this.filterFoods}
+          />
+          <FoodList
+            foods={this.state.foods}
+          />
+        </div>
       </div>
     );
   }
 }
 
-class Button extends Component {
-  render() {
-    const {buttonName, buttonSize, updateValue} = this.props;
-    return (
-      <button
-        className={`button ${buttonSize}`}
-        onClick={updateValue}
-      >
-        {buttonName}
-      </button>
-    )
-  }
-}
+const foods = [
+  'mpugatsa',
+  'souvlaki',
+  'tzatziki',
+  'mousakas'
+];
 
 ReactDOM.render(
-  <App />,
+  <App foods={foods}/>,
   document.getElementById('root')
 );
