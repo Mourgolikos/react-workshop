@@ -2,6 +2,26 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
+class LifeCycleMethods extends Component {
+  constructor() {
+    super();
+  }
+
+  componentWillMount() {
+    console.log('componentWillMount');
+  }
+
+  componentDidMount() {
+    console.log('componentDidMount');
+  }
+
+  render() {
+    return (
+      <h2>LifecycleMethods</h2>
+    )
+  }
+}
+
 class App extends Component {
   render() {
     return (
