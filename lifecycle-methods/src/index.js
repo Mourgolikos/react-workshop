@@ -5,6 +5,7 @@ import './index.css';
 class LifeCycleMethods extends Component {
   constructor() {
     super();
+    this.input = null;
   }
 
   componentWillMount() {
@@ -13,11 +14,17 @@ class LifeCycleMethods extends Component {
 
   componentDidMount() {
     console.log('componentDidMount');
+    this.input.value = 'React Component'
   }
 
   render() {
     return (
-      <h2>LifecycleMethods</h2>
+      <div>
+        <h2>LifecycleMethods</h2>
+        <input
+          ref={el => (this.input = el)}
+        />
+      </div>
     )
   }
 }
