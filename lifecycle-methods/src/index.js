@@ -6,6 +6,14 @@ class LifeCycleMethods extends Component {
   constructor() {
     super();
     this.input = null;
+    this.state = {
+      volume: 0
+    };
+    this.updateVolume = this.updateVolume.bind(this);
+  }
+
+  updateVolume() {
+    this.setState({volume: this.state.volume + 1});
   }
 
   componentWillMount() {
@@ -19,6 +27,7 @@ class LifeCycleMethods extends Component {
     console.log('componentDidMount');
     console.log('-------------------');
     this.input.value = 'React Component'
+    this.inc = setInterval(this.updateVolume, 500);
   }
 
   render() {
@@ -28,6 +37,7 @@ class LifeCycleMethods extends Component {
         <input
           ref={el => (this.input = el)}
         />
+        <p>The volume is {this.state.volume}</p>
       </div>
     )
   }
@@ -36,6 +46,7 @@ class LifeCycleMethods extends Component {
     console.log('-------------------');
     console.log('componentWillUnmount');
     console.log('-------------------');
+    clearInterval(this.inc);
   }
 }
 
