@@ -23,6 +23,27 @@ class LifeCycleMethods extends Component {
 }
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      showLifecycleComponent: false
+    };
+    this.hideComponent = this.hideComponent.bind(this);
+    this.showComponent = this.showComponent.bind(this);
+  }
+
+  hideComponent() {
+    this.setState({
+      showLifecycleComponent: false
+    });
+  }
+
+  showComponent() {
+    this.setState({
+      showLifecycleComponent: true
+    });
+  }
+
   render() {
     return (
       <div className="App">
@@ -30,12 +51,16 @@ class App extends Component {
           <h2>Welcome to React-Workshop</h2>
         </div>
         <div>
-          <button>
+          <button onClick={this.showComponent}>
             Mount
           </button>
-          <button>
+          <button onClick={this.hideComponent}>
             Unmount
           </button>
+          {
+            this.state.showLifecycleComponent
+            && <LifeCycleMethods />
+          }
         </div>
       </div>
     );
