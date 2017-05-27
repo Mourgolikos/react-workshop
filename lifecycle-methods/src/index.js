@@ -9,6 +9,14 @@ class App extends Component {
         <div className="App-header">
           <h2>Welcome to React-Workshop</h2>
         </div>
+        <div>
+          <button>
+            Mount
+          </button>
+          <button>
+            Unmount
+          </button>
+        </div>
       </div>
     );
   }
