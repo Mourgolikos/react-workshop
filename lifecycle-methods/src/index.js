@@ -9,11 +9,15 @@ class LifeCycleMethods extends Component {
   }
 
   componentWillMount() {
+    console.log('-------------------');
     console.log('componentWillMount');
+    console.log('-------------------');
   }
 
   componentDidMount() {
+    console.log('-------------------');
     console.log('componentDidMount');
+    console.log('-------------------');
     this.input.value = 'React Component'
   }
 
@@ -26,6 +30,12 @@ class LifeCycleMethods extends Component {
         />
       </div>
     )
+  }
+
+  componentWillUnmount() {
+    console.log('-------------------');
+    console.log('componentWillUnmount');
+    console.log('-------------------');
   }
 }
 
