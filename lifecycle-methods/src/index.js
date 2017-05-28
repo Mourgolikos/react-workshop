@@ -16,37 +16,34 @@ class LifeCycleMethods extends Component {
     this.setState({volume: this.state.volume + 1});
   }
 
-  componentWillMount() {
+  shouldComponentUpdate(nextProps, nextState) {
     console.log('-------------------');
-    console.log('componentWillMount');
+    console.log('shouldComponentUpdate');
     console.log('-------------------');
+
+    return true;
   }
 
-  componentDidMount() {
+componentWillUpdate() {
     console.log('-------------------');
-    console.log('componentDidMount');
+    console.log('componentWillUpdate');
     console.log('-------------------');
-    this.input.value = 'React Component'
-    this.inc = setInterval(this.updateVolume, 500);
-  }
+}
+
+componentDidUpdate() {
+    console.log('-------------------');
+    console.log('componentDidUpdate');
+    console.log('-------------------');
+}
 
   render() {
     return (
       <div>
         <h2>LifecycleMethods</h2>
-        <input
-          ref={el => (this.input = el)}
-        />
+        <button onClick={this.updateVolume}>Volume up</button>
         <p>The volume is {this.state.volume}</p>
       </div>
     )
-  }
-
-  componentWillUnmount() {
-    console.log('-------------------');
-    console.log('componentWillUnmount');
-    console.log('-------------------');
-    clearInterval(this.inc);
   }
 }
 
