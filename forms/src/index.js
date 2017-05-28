@@ -9,7 +9,8 @@ class SimpleForm extends Component {
     this.state = {
       username: '',
       password: '',
-      type: 'member'
+      type: 'member',
+      hasError: false
     };
 
     this.updateField = this.updateField.bind(this);
@@ -18,20 +19,31 @@ class SimpleForm extends Component {
 
   updateField(event) {
     const target = event.target;
-    const name = target.name;
+    const {name, value} = target;
 
     this.setState({
-      [name]: target.value
+      hasError: false,
+      [name]: value
     });
   }
 
   onSubmit(event) {
     event.preventDefault();
+    const {username, password} = this.state;
+
+    if (!username || !password) {
+      this.setState({
+        hasError: true
+      });
+      return;
+    }
 
     console.log(this.state);
   }
 
   render() {
+    const {username, password, hasError} = this.state;
+
     return (
       <form className='top-spacer'>
         <div>
@@ -40,6 +52,7 @@ class SimpleForm extends Component {
             id='username'
             name='username'
             type='text'
+            className={`${!username && hasError ? 'error' : ''}`}
             onChange={this.updateField}
           />
         </div>
@@ -49,6 +62,7 @@ class SimpleForm extends Component {
             id='password'
             name='password'
             type='password'
+            className={`${!password && hasError ? 'error' : ''}`}
             onChange={this.updateField}
           />
         </div>
