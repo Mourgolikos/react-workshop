@@ -20,6 +20,9 @@ class LifeCycleMethods extends Component {
     console.log('-------------------');
     console.log('shouldComponentUpdate');
     console.log('-------------------');
+    if (nextState.volume % 2 === 0) {
+      return false;
+    }
 
     return true;
   }
