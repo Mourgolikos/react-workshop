@@ -6,7 +6,6 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      currentEvent: '----',
       thoughts: ''
     };
 
@@ -14,7 +13,7 @@ class App extends Component {
   }
 
   update(event) {
-    this.setState({thoughts: event.target.value})
+    debugger
   }
 
   render() {
@@ -25,9 +24,7 @@ class App extends Component {
         </div>
         <div>
           <h2>Write your thoughts: {this.state.thoughts}</h2>
-          <input
-            onChange={this.update}
-          />
+          <input />
         </div>
         <Button
           buttonName='Totos'
