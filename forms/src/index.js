@@ -5,49 +5,67 @@ import './index.css';
 class SimpleForm extends Component {
   constructor() {
     super();
+
+    this.state = {
+      username: '',
+      password: '',
+      type: 'member'
+    };
+
+    this.updateField = this.updateField.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+  }
+
+  updateField(event) {
+    const target = event.target;
+    const name = target.name;
+
+    this.setState({
+      [name]: target.value
+    });
   }
 
   onSubmit(event) {
     event.preventDefault();
-    debugger
-    const data = {
-      username: this.username.value,
-      password: this.password.value,
-      type: this.type.value
-    };
-    console.log(data);
+
+    console.log(this.state);
   }
 
   render() {
     return (
-      <form
-        className='top-spacer'
-        onSubmit={this.onSubmit}
-      >
-        <label htmlFor='username'>Username</label>
-        <input
-          id='username'
-          ref={el => this.username = el}
-        />
-        <label htmlFor='password'>Password</label>
-        <input
-          id='password'
-          type='password'
-          ref={el => this.password = el}
-        />
-        <select
-          ref={el => this.type = el}
-        >
-          <option value="member">Member</option>
-          <option value="admin">Admin</option>
-          <option value="other">Other</option>
-        </select>
+      <form className='top-spacer'>
+        <div>
+          <label htmlFor='username'>Username: </label>
+          <input
+            id='username'
+            name='username'
+            type='text'
+            onChange={this.updateField}
+          />
+        </div>
+        <div>
+          <label htmlFor='password'>Password: </label>
+          <input
+            id='password'
+            name='password'
+            type='password'
+            onChange={this.updateField}
+          />
+        </div>
+        <div>
+          <select
+            name='type'
+            onChange={this.updateField}
+          >
+            <option value="member">Member</option>
+            <option value="admin">Admin</option>
+            <option value="other">Other</option>
+          </select>
+        </div>
 
-        <button>Submit</button>
-
+        <button onClick={this.onSubmit}>Submit</button>
       </form>
-    )
+    );
   }
 }
 
