@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component, PureComponent} from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
@@ -16,36 +16,32 @@ class LifeCycleMethods extends Component {
     this.setState({volume: this.state.volume + 1});
   }
 
-  shouldComponentUpdate(nextProps, nextState) {
-    console.log('-------------------');
-    console.log('shouldComponentUpdate');
-    console.log('-------------------');
-    if (this.state.volume % 2 === 0) {
-      return false;
-    }
-
-    return true;
-  }
-
-componentWillUpdate() {
-    console.log('-------------------');
-    console.log('componentWillUpdate');
-    console.log('-------------------');
-}
-
-componentDidUpdate() {
-    console.log('-------------------');
-    console.log('componentDidUpdate');
-    console.log('-------------------');
-}
-
   render() {
     return (
       <div>
         <h2>LifecycleMethods</h2>
         <button onClick={this.updateVolume}>Volume up</button>
-        <p>The volume is {this.state.volume}</p>
+        <VolumeText volume={this.state.volume}/>
       </div>
+    )
+  }
+}
+
+class VolumeText extends PureComponent {
+  constructor() {
+    super();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log('-------------------');
+    console.log('componentWillReceiveProps');
+    console.log('-------------------');
+    console.log(nextProps)
+  }
+
+  render() {
+    return (
+      <p>The volume is {this.props.volume}</p>
     )
   }
 }
