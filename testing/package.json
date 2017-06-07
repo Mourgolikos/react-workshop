@@ -1,0 +1,20 @@
+{
+  "name": "testing",
+  "version": "0.0.1",
+  "private": true,
+  "devDependencies": {
+    "jest-enzyme": "^3.2.0",
+    "react-scripts": "1.0.7",
+    "react-test-renderer": "^15.5.4"
+  },
+  "dependencies": {
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  }
+}
