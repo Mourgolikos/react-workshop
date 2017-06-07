@@ -4,7 +4,8 @@ import './index.css';
 import {
   BrowserRouter as Router,
   Route,
-  Link
+  Link,
+  Switch
 } from 'react-router-dom';
 
 const Home = () => <h2>Home Page</h2>;
@@ -55,9 +56,12 @@ class App extends Component {
               <Link to='/topics'>Topics</Link>
             </li>
           </ul>
-          <Route exact path='/' component={Home}/>
-          <Route path='/about' component={About}/>
-          <Route path='/topics' component={Topics}/>
+          <Switch>
+            <Route exact path='/' component={Home}/>
+            <Route path='/about' component={About}/>
+            <Route path='/topics' component={Topics}/>
+            <Route render={() => <h2>No Match (404)</h2>}/>
+          </Switch>
         </div>
       </Router>
     );
