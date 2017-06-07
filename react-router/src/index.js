@@ -9,6 +9,7 @@ import {
 
 const Home = () => <h2>Home Page</h2>;
 
+const About = () => <h2>About</h2>;
 class App extends Component {
   render() {
     return (
@@ -19,7 +20,14 @@ class App extends Component {
               <h2>Welcome to React-Workshop</h2>
             </div>
           </div>
-          <Route path='/' component={Home}/>
+          <ul>
+            <li>
+              <Link to='/'>Home</Link>
+            </li>
+            <li>
+              <Link to='/about'>About</Link>
+            </li>
+          <Route path='/about' component={About}/>
         </div>
       </Router>
     );
