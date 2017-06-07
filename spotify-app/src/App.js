@@ -8,6 +8,24 @@ import Search from './search';
 import './index.css';
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      searchText: ''
+    };
+
+    this.onInputChange = this.onInputChange.bind(this);
+    this.onSearch = this.onSearch.bind(this);
+  }
+
+  onInputChange(event) {
+    this.setState({searchText: event.target.value});
+  }
+
+  onSearch(event) {
+    console.log(this.state.searchText)
+  }
+
   render() {
     return (
       <Router>
@@ -17,7 +35,16 @@ class App extends Component {
             <li><Link to='/favorite'>Favorite</Link></li>
           </ul>
 
-          <Route path='/' component={Search}/>
+          <Route
+            path='/'
+            render={() => {
+              return <Search
+                  onInputChange={this.onInputChange}
+                  onSearch={this.onSearch}
+                />
+              }
+            }
+           />
         </div>
       </Router>
     );

@@ -1,13 +1,12 @@
-import React, {Component} from 'react';
+import React from 'react';
 
-class Search extends Component {
-  render() {
-    return (
-      <div>
-        <input/>
-      </div>
-    )
-  }
+const Search = ({onSearch, onInputChange}) => {
+  return (
+    <div>
+      <input type='text' onChange={onInputChange}/>
+      <button className='btn-small' onClick={onSearch}>Search</button>
+    </div>
+  )
 }
 
 export default Search;
