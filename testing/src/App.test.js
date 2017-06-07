@@ -27,7 +27,18 @@ describe('Counter App', () => {
     });
 
     it('the Emoji component when the counter is multiple of 2', () => {
-      // Add this test
+      const wrapper = shallow(<App/>);
+      const addButton = wrapper.find('.add');
+      addButton.simulate('click');
+
+      let actual = wrapper.find(Emoji).length;
+      let expected = 0;
+      expect(actual).toEqual(expected);
+
+      addButton.simulate('click');
+      actual = wrapper.find(Emoji).length;
+      expected = 1;
+      expect(actual).toEqual(expected);
     });
   });
 
