@@ -4,7 +4,7 @@ import {
   Route,
   Link
 } from 'react-router-dom'
-import Search from './search';
+import Home from './home';
 import './index.css';
 
 class App extends Component {
@@ -46,9 +46,10 @@ class App extends Component {
           <Route
             path='/'
             render={() => {
-              return <Search
+              return <Home
                   onInputChange={this.onInputChange}
                   onSearch={this.onSearch}
+                  artists={this.state.artists}
                 />
               }
             }
