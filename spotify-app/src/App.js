@@ -11,7 +11,8 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      searchText: ''
+      searchText: '',
+      artists: []
     };
 
     this.onInputChange = this.onInputChange.bind(this);
@@ -23,7 +24,14 @@ class App extends Component {
   }
 
   onSearch(event) {
-    console.log(this.state.searchText)
+    fetch(`http://localhost:3000/artists?q=${this.state.searchText}`)
+      .then(response => response.json())
+      .then(artists => {
+        this.setState({
+          artists,
+          searchText: ''
+        });
+      });
   }
 
   render() {
