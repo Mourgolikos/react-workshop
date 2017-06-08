@@ -52,11 +52,10 @@ class App extends Component {
         selected: !selectedArtist.selected
       };
 
-      favoriteArtists = selectedArtist.selected
+      favoriteArtists = selectedArtist.selected && indexOfFavoriteArtist < 0
         ? [
-            ...favorite.slice(0, indexOfFavoriteArtist),
+            ...favorite,
             selectedArtist,
-            ...favorite.slice(indexOfFavoriteArtist + 1)
           ]
         :
           [
@@ -76,26 +75,36 @@ class App extends Component {
   }
 
   render() {
+    const {favorite, artists} = this.state;
+    const favoriteLength = favorite.length;
+    const favoriteCounter = favoriteLength > 0
+      ? `(${favoriteLength})`
+      : '';
+
     return (
       <Router>
         <div className="App">
-          <ul>
-            <li><Link to='/'>Search</Link></li>
-            <li><Link to='/favorite'>Favorite</Link></li>
-          </ul>
+          <div className='navbar'>
+            <ul>
+              <li><Link to='/'>Search</Link></li>
+              <li><Link to='/favorite'>Favorite {favoriteCounter}</Link></li>
+            </ul>
+          </div>
 
-          <Route
-            path='/'
-            render={() => {
-              return <Home
-                  onInputChange={this.onInputChange}
-                  onSearch={this.onSearch}
-                  onSelectArtist={this.onSelectArtist}
-                  artists={this.state.artists}
-                />
+          <div className='main'>
+            <Route
+              path='/'
+              render={() => {
+                return <Home
+                    onInputChange={this.onInputChange}
+                    onSearch={this.onSearch}
+                    onSelectArtist={this.onSelectArtist}
+                    artists={artists}
+                  />
+                }
               }
-            }
-           />
+            />
+          </div>
         </div>
       </Router>
     );
