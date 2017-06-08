@@ -5,6 +5,7 @@ import {
   Link
 } from 'react-router-dom'
 import Home from './home';
+import Favorite from './favorite';
 import './index.css';
 
 class App extends Component {
@@ -93,6 +94,7 @@ class App extends Component {
 
           <div className='main'>
             <Route
+              exact
               path='/'
               render={() => {
                 return <Home
@@ -103,6 +105,15 @@ class App extends Component {
                   />
                 }
               }
+            />
+            <Route
+              path='/favorite'
+              render={() => {
+                return <Favorite
+                  onSelectArtist={this.onSelectArtist}
+                  artists={favorite}
+                />
+              }}
             />
           </div>
         </div>
