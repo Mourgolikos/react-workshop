@@ -27,50 +27,56 @@ class App extends Component {
   }
 
   onSearch(event) {
+    const {favorite} = this.state;
     fetch(`http://localhost:3000/artists?q=${this.state.searchText}`)
       .then(response => response.json())
       .then(artists => {
         this.setState({
-          artists: artists.map(artist => ({
-            selected: false,
-            ...artist
-          })),
+          artists: artists.map(artist => {
+            return {
+              selected: favorite.some(fav => fav.id === artist.id),
+              ...artist
+            }
+          }),
           searchText: ''
         });
       });
   }
 
   onSelectArtist(artistId) {
-    let favoriteArtists = [];
     const {artists, favorite} = this.state;
+    let artistsList = artists;
+
     let selectedArtist = artists.find(artist => artist.id === artistId);
     const indexOfSelectedArtist = artists.indexOf(selectedArtist);
-    const indexOfFavoriteArtist = favorite.indexOf(selectedArtist);
+    const selectedFavoriteArtist = favorite.find(fav => fav.id === artistId);
+    const indexOfFavoriteArtist = favorite.indexOf(selectedFavoriteArtist);
 
     if (selectedArtist) {
       selectedArtist = {
         ...selectedArtist,
         selected: !selectedArtist.selected
       };
-
-      favoriteArtists = selectedArtist.selected && indexOfFavoriteArtist < 0
-        ? [
-            ...favorite,
-            selectedArtist,
-          ]
-        :
-          [
-            ...favorite.slice(0, indexOfFavoriteArtist),
-            ...favorite.slice(indexOfFavoriteArtist+ 1)
-          ];
-    }
-
-    this.setState({
-      artists: [
+      artistsList = [
         ...artists.slice(0, indexOfSelectedArtist),
         selectedArtist,
         ...artists.slice(indexOfSelectedArtist + 1)
-      ],
+      ];
+    }
+
+    const favoriteArtists = selectedArtist && selectedArtist.selected
+      ? [
+          ...favorite,
+          selectedArtist,
+        ]
+      :
+        [
+          ...favorite.slice(0, indexOfFavoriteArtist),
+          ...favorite.slice(indexOfFavoriteArtist+ 1)
+        ];
+
+    this.setState({
+      artists: artistsList,
       favorite: favoriteArtists
     });
   }
