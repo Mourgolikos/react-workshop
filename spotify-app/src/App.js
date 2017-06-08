@@ -12,11 +12,13 @@ class App extends Component {
     super();
     this.state = {
       searchText: '',
-      artists: []
+      artists: [],
+      favorite: []
     };
 
     this.onInputChange = this.onInputChange.bind(this);
     this.onSearch = this.onSearch.bind(this);
+    this.onSelectArtist = this.onSelectArtist.bind(this);
   }
 
   onInputChange(event) {
@@ -28,10 +30,49 @@ class App extends Component {
       .then(response => response.json())
       .then(artists => {
         this.setState({
-          artists,
+          artists: artists.map(artist => ({
+            selected: false,
+            ...artist
+          })),
           searchText: ''
         });
       });
+  }
+
+  onSelectArtist(artistId) {
+    let favoriteArtists = [];
+    const {artists, favorite} = this.state;
+    let selectedArtist = artists.find(artist => artist.id === artistId);
+    const indexOfSelectedArtist = artists.indexOf(selectedArtist);
+    const indexOfFavoriteArtist = favorite.indexOf(selectedArtist);
+
+    if (selectedArtist) {
+      selectedArtist = {
+        ...selectedArtist,
+        selected: !selectedArtist.selected
+      };
+
+      favoriteArtists = selectedArtist.selected
+        ? [
+            ...favorite.slice(0, indexOfFavoriteArtist),
+            selectedArtist,
+            ...favorite.slice(indexOfFavoriteArtist + 1)
+          ]
+        :
+          [
+            ...favorite.slice(0, indexOfFavoriteArtist),
+            ...favorite.slice(indexOfFavoriteArtist+ 1)
+          ];
+    }
+
+    this.setState({
+      artists: [
+        ...artists.slice(0, indexOfSelectedArtist),
+        selectedArtist,
+        ...artists.slice(indexOfSelectedArtist + 1)
+      ],
+      favorite: favoriteArtists
+    });
   }
 
   render() {
@@ -49,6 +90,7 @@ class App extends Component {
               return <Home
                   onInputChange={this.onInputChange}
                   onSearch={this.onSearch}
+                  onSelectArtist={this.onSelectArtist}
                   artists={this.state.artists}
                 />
               }

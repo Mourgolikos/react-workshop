@@ -1,10 +1,13 @@
 import React, {PureComponent} from 'react';
 
-const Artist = ({artist: {name, genre, year, img}}) => {
+const Artist = ({onSelectArtist, artist: {id, name, genre, year, img, selected}}) => {
   return (
     <li className='card'>
       <img src={img} alt="Avatar"/>
       <div className='container'>
+        <div
+          className={`heart ${selected ? 'red' : ''}`}
+          onClick={() => onSelectArtist(id)}>&hearts;</div>
         <h4><b>{name}</b></h4>
         <p>{`${genre} - ${year}`}</p>
       </div>
@@ -13,11 +16,18 @@ const Artist = ({artist: {name, genre, year, img}}) => {
 }
 class Artists extends PureComponent {
   render() {
+    const {onSelectArtist, artists} = this.props;
     return (
       <div className='artists'>
         <ul>
-          {this.props.artists.map(artist => {
-            return <Artist key={artist.id} artist={artist}/>
+          {artists.map(artist => {
+            return (
+              <Artist
+                key={artist.id}
+                onSelectArtist={onSelectArtist}
+                artist={artist}
+              />
+            )
           })}
         </ul>
       </div>
